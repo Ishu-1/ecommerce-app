@@ -4,12 +4,11 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../../../lib/auth";
 export async function POST(req) {
     try {
-        // const session = await getServerSession(authOptions);
-        // if (!session) {
-        //     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-        // }
-        // const userId = session.user.id;
-        const userId = "28d82cba-fcc6-4c93-a213-4961fc58e542";
+        const session = await getServerSession(authOptions);
+        if (!session) {
+            return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+        }
+        const userId = session.user.id;
         const { productId, rating, comment } = await req.json();
         if (!productId || typeof rating !== "number" || !comment) {
             return NextResponse.json({ message: "Invalid input data" }, { status: 400 });
