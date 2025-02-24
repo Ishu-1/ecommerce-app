@@ -20,6 +20,7 @@ model User {
   orders   Orders[]
   cart     Json[]   // {productId: , quantity:}
   reviews  Review[]
+  wishlist String[]
 }
 
 model Admin {
@@ -33,7 +34,8 @@ model Product {
   name        String
   image       String[]
   description String
-  price       Float
+  category    String? // {}
+  price       Int
   stock       Int
   reviews     Review[]
   createdAt   DateTime @default(now())
@@ -59,12 +61,7 @@ model Orders {
   name       String
   address    String
   phone      String
-  amount      Float
-  paymentMode PaymentMode
+  amount      Int
+  paymentMode String  @default("COD") //{COD,RazorPay} 
   createdAt  DateTime @default(now())
-}
-
-enum PaymentMode {
-  COD
-  Razorpay
 }
